@@ -1,3 +1,20 @@
 /Assessments/
 /assessment/
 /scripts/build_ai102_assessments.py
+
+# Local publication state and secrets
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Private source material and local tooling
+/reference/
+/.claude/
+/courseware/archive/
+**/__pycache__/
+
+# Generated archives
+*.zip

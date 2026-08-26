@@ -155,4 +155,4 @@ def qa():
 
 
 if __name__ == "__main__":
-    sys.exit(qa())
+    from qa_ai102_courseware_v2 import *  # noqa: F401,F403

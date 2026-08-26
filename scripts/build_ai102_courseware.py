@@ -1395,20 +1395,10 @@ def lab_slide_range(slide_index: dict[str, int], lab_num: int) -> str:
 
 
 def main():
-    OUT_DIR.mkdir(exist_ok=True)
-    ASSET_DIR.mkdir(exist_ok=True)
-    labs = load_labs()
-    logos, _ = extract_reference_assets(labs)
-    build_learner_guide(labs, logos)
-    builder = DeckBuilder(labs, logos)
-    slide_index = builder.build()
-    build_lesson_plan(labs, logos, slide_index)
-    print(f"Wrote {PPTX_OUT}")
-    print(f"Wrote {LG_DOCX_OUT}")
-    print(f"Wrote {LG_MD_OUT}")
-    print(f"Wrote {LP_DOCX_OUT}")
-    for lab in labs:
-        print(f"Lab {lab.num:02d}: slides {lab_slide_range(slide_index, lab.num)}; diagram source {lab.diagram_source_slide or 'none'}")
+    """Compatibility entry point for the project-local /courseware-gen command."""
+    from build_ai102_courseware_v2 import main as build_v2
+
+    build_v2()
 
 
 if __name__ == "__main__":
