@@ -1,0 +1,4 @@
+python-dotenv
+azure-ai-contentunderstanding
+azure-search-documents==11.6.0
+openai

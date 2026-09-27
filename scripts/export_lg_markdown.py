@@ -10,7 +10,7 @@ root = Path(__file__).resolve().parents[1]
 source = root / 'courseware' / 'LG-Developing AI Apps and Agents on Azure (AI-103).docx'
 target = root / 'courseware' / 'LG-Developing AI Apps and Agents on Azure (AI-103).md'
 doc = Document(source)
-lines = ['# Developing AI Apps and Agents on Azure (AI-103) — Learner Guide', '', 'Course code: TGS-2023036651 · Version 4.0', '']
+lines = ['# Developing AI Apps and Agents on Azure (AI-103) — Learner Guide', '', 'Course code: TGS-2023036651 · Version 5.0', '']
 for child in doc.element.body.iterchildren():
     if child.tag == qn('w:p'):
         p = Paragraph(child, doc)

@@ -34,28 +34,28 @@ Learners use Microsoft Foundry and Azure AI services to design secure AI solutio
 
 | Artifact | Open |
 | --- | --- |
-| Trainer slides | [PPTX](courseware/Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29-v4.0.pptx) · [PDF](courseware/Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29-v4.0.pdf) |
+| Trainer slides | [PPTX](courseware/Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29-v5.0.pptx) · [PDF](courseware/Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29-v5.0.pdf) |
 | Learner Guide | [DOCX](courseware/LG-Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29.docx) · [PDF](courseware/LG-Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29.pdf) · [Markdown](courseware/LG-Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29.md) |
 | Lesson Plan | [DOCX](courseware/LP-Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29.docx) · [PDF](courseware/LP-Developing%20AI%20Apps%20and%20Agents%20on%20Azure%20%28AI-103%29.pdf) |
-| QA | [Structural and alignment report](courseware/QA-REPORT-v4.0.md) |
-| Exam alignment | [Five-domain map with slide, lab, and assessment coverage](courseware/AI103-DOMAIN-MAP-v4.0.md) |
+| QA | [Structural and alignment report](courseware/QA-REPORT-v5.0.md) |
+| Exam alignment | [Five-domain map with slide, lab, and assessment coverage](courseware/AI103-DOMAIN-MAP-v5.0.md) |
 
 The slide deck is visual and editable. Detailed procedures and acceptance checks are in the Learner Guide and individual labs.
 
 ## Labs
 
-1. [Plan, manage, monitor, and secure an Azure AI solution](labs/lab-01-plan-manage-secure-azure-ai-solution/README.md)
-2. [Responsible AI and content safety](labs/lab-02-responsible-ai-content-safety-governance/README.md)
-3. [Generative AI and grounded RAG](labs/lab-03-generative-ai-foundry-openai-prompt-flow-rag/README.md)
-4. [Foundry agents and tools](labs/lab-04-agentic-ai-foundry-agent-service/README.md)
-5. [Image/video generation and multimodal understanding](labs/lab-05-image-video-generation-multimodal/README.md)
-6. [Language, speech, and translation](labs/lab-06-nlp-language-speech-translation/README.md)
-7. [Generative text analysis and translation](labs/lab-07-generative-text-analysis/README.md)
-8. [AI Search and vector retrieval](labs/lab-08-ai-search-knowledge-mining-vector-search/README.md)
-9. [Document Intelligence and Content Understanding](labs/lab-09-document-intelligence-content-understanding/README.md)
-10. [AI-103 capstone and course review](labs/lab-10-ai103-capstone-course-review/README.md)
+The [lab index](labs/README.md) selects ten exercises for the two-day class. The [official source manifest](labs/OFFICIAL-SOURCE-MANIFEST.json) pins five unchanged MicrosoftLearning repositories, including the exercise instructions, learner assets, and MIT licenses. The remaining official exercises are available for self-study. Sixty-eight upstream trainer solution files remain private.
 
-See the [lab index](labs/README.md) for the sequence. Each lab has its own scenario, procedure, validation, and evidence checks.
+1. [Plan a Foundry project](labs/lab-01-plan-a-foundry-project/README.md) — Plan and manage; [official instructions](labs/official/mslearn-ai-studio/Instructions/Exercises/01-Explore-ai-studio.md)
+2. [Evaluate models and release guardrails](labs/lab-02-evaluate-models-and-release-guardrails/README.md) — Plan and manage; [official instructions](labs/official/mslearn-ai-studio/Instructions/Exercises/02-model-catalog-evaluation.md)
+3. [Build a generative chat app](labs/lab-03-build-a-generative-chat-app/README.md) — Generative AI and agentic; [official instructions](labs/official/mslearn-ai-studio/Instructions/Exercises/03-foundry-sdk.md)
+4. [Build a Foundry agent](labs/lab-04-build-a-foundry-agent/README.md) — Generative AI and agentic; [official instructions](labs/official/mslearn-ai-agents/Instructions/Exercises/01-build-agent-portal-and-vscode.md)
+5. [Use a custom tool in an agent](labs/lab-05-use-a-custom-tool-in-an-agent/README.md) — Generative AI and agentic; [official instructions](labs/official/mslearn-ai-agents/Instructions/Exercises/02-agent-custom-tools.md)
+6. [Develop a vision-enabled chat app](labs/lab-06-develop-a-vision-enabled-chat-app/README.md) — Computer vision; [official instructions](labs/official/mslearn-ai-vision/Instructions/Exercises/01-gen-ai-vision.md)
+7. [Analyze text](labs/lab-07-analyze-text/README.md) — Text analysis; [official instructions](labs/official/mslearn-ai-language/Instructions/Exercises/01-analyze-text.md)
+8. [Develop a text analysis agent](labs/lab-08-develop-a-text-analysis-agent/README.md) — Text analysis; [official instructions](labs/official/mslearn-ai-language/Instructions/Exercises/02-language-agent.md)
+9. [Extract multimodal information](labs/lab-09-extract-multimodal-information/README.md) — Information extraction; [official instructions](labs/official/mslearn-ai-information-extraction/Instructions/Exercises/01-content-understanding.md)
+10. [Build a knowledge mining solution](labs/lab-10-build-a-knowledge-mining-solution/README.md) — Information extraction; [official instructions](labs/official/mslearn-ai-information-extraction/Instructions/Exercises/04-knowledge-mining.md)
 
 ## Distribution
 

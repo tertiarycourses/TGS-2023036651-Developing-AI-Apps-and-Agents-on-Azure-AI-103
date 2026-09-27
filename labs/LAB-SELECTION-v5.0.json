@@ -1,0 +1,92 @@
+[
+  {
+    "number": 1,
+    "title": "Plan a Foundry project",
+    "domain": "Plan and manage",
+    "duration_minutes": 30,
+    "source_repository": "mslearn-ai-studio",
+    "source_path": "official/mslearn-ai-studio/Instructions/Exercises/01-Explore-ai-studio.md",
+    "wrapper_path": "lab-01-plan-a-foundry-project/README.md"
+  },
+  {
+    "number": 2,
+    "title": "Evaluate models and release guardrails",
+    "domain": "Plan and manage",
+    "duration_minutes": 45,
+    "source_repository": "mslearn-ai-studio",
+    "source_path": "official/mslearn-ai-studio/Instructions/Exercises/02-model-catalog-evaluation.md",
+    "wrapper_path": "lab-02-evaluate-models-and-release-guardrails/README.md"
+  },
+  {
+    "number": 3,
+    "title": "Build a generative chat app",
+    "domain": "Generative AI and agentic",
+    "duration_minutes": 45,
+    "source_repository": "mslearn-ai-studio",
+    "source_path": "official/mslearn-ai-studio/Instructions/Exercises/03-foundry-sdk.md",
+    "wrapper_path": "lab-03-build-a-generative-chat-app/README.md"
+  },
+  {
+    "number": 4,
+    "title": "Build a Foundry agent",
+    "domain": "Generative AI and agentic",
+    "duration_minutes": 45,
+    "source_repository": "mslearn-ai-agents",
+    "source_path": "official/mslearn-ai-agents/Instructions/Exercises/01-build-agent-portal-and-vscode.md",
+    "wrapper_path": "lab-04-build-a-foundry-agent/README.md"
+  },
+  {
+    "number": 5,
+    "title": "Use a custom tool in an agent",
+    "domain": "Generative AI and agentic",
+    "duration_minutes": 50,
+    "source_repository": "mslearn-ai-agents",
+    "source_path": "official/mslearn-ai-agents/Instructions/Exercises/02-agent-custom-tools.md",
+    "wrapper_path": "lab-05-use-a-custom-tool-in-an-agent/README.md"
+  },
+  {
+    "number": 6,
+    "title": "Develop a vision-enabled chat app",
+    "domain": "Computer vision",
+    "duration_minutes": 30,
+    "source_repository": "mslearn-ai-vision",
+    "source_path": "official/mslearn-ai-vision/Instructions/Exercises/01-gen-ai-vision.md",
+    "wrapper_path": "lab-06-develop-a-vision-enabled-chat-app/README.md"
+  },
+  {
+    "number": 7,
+    "title": "Analyze text",
+    "domain": "Text analysis",
+    "duration_minutes": 30,
+    "source_repository": "mslearn-ai-language",
+    "source_path": "official/mslearn-ai-language/Instructions/Exercises/01-analyze-text.md",
+    "wrapper_path": "lab-07-analyze-text/README.md"
+  },
+  {
+    "number": 8,
+    "title": "Develop a text analysis agent",
+    "domain": "Text analysis",
+    "duration_minutes": 30,
+    "source_repository": "mslearn-ai-language",
+    "source_path": "official/mslearn-ai-language/Instructions/Exercises/02-language-agent.md",
+    "wrapper_path": "lab-08-develop-a-text-analysis-agent/README.md"
+  },
+  {
+    "number": 9,
+    "title": "Extract multimodal information",
+    "domain": "Information extraction",
+    "duration_minutes": 35,
+    "source_repository": "mslearn-ai-information-extraction",
+    "source_path": "official/mslearn-ai-information-extraction/Instructions/Exercises/01-content-understanding.md",
+    "wrapper_path": "lab-09-extract-multimodal-information/README.md"
+  },
+  {
+    "number": 10,
+    "title": "Build a knowledge mining solution",
+    "domain": "Information extraction",
+    "duration_minutes": 45,
+    "source_repository": "mslearn-ai-information-extraction",
+    "source_path": "official/mslearn-ai-information-extraction/Instructions/Exercises/04-knowledge-mining.md",
+    "wrapper_path": "lab-10-build-a-knowledge-mining-solution/README.md"
+  }
+]

@@ -1,28 +1,18 @@
-# AI-103 Labs Index — Developing AI Apps and Agents on Azure (AI-103)
+# AI-103 official Microsoft Learn labs
 
-Course code: `TGS-2023036651`. The labs follow the [current Microsoft AI-103 study guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103).
+The `official/` tree is an exact pinned copy of five MicrosoftLearning lab repositories (source files and assets unchanged). See [source manifest](OFFICIAL-SOURCE-MANIFEST.json) and each repository LICENSE.
 
-Complete the labs in order. Every lab is self-contained in its own folder and includes objectives, scenario, detailed step-by-step activities, validation checks, cleanup guidance, and course review checkpoints.
+The ten numbered folders below identify the exercises used during this two-day WSQ delivery. The other official exercises remain available for self-study.
 
-| Lab | Title | Main Topic |
-| --- | --- | --- |
-| 01 | [Plan, Manage, Monitor, and Secure an Azure AI Solution](lab-01-plan-manage-secure-azure-ai-solution/README.md) | Planning and operations |
-| 02 | [Responsible AI, Content Safety, Governance](lab-02-responsible-ai-content-safety-governance/README.md) | Responsible AI |
-| 03 | [Generative AI, Foundry, Azure OpenAI, Prompt Flow, RAG](lab-03-generative-ai-foundry-openai-prompt-flow-rag/README.md) | Generative AI |
-| 04 | [Agentic AI, Foundry Agent Service, Multi-Agent Concepts](lab-04-agentic-ai-foundry-agent-service/README.md) | Agents |
-| 05 | [Image and Video Generation, Multimodal Understanding](lab-05-image-video-generation-multimodal/README.md) | Vision |
-| 06 | [NLP, Language, Speech, Translation](lab-06-nlp-language-speech-translation/README.md) | Language and speech |
-| 07 | [Generative Text Analysis and Translation](lab-07-generative-text-analysis/README.md) | Text analysis |
-| 08 | [Azure AI Search, Knowledge Mining, Vector Search](lab-08-ai-search-knowledge-mining-vector-search/README.md) | Search and mining |
-| 09 | [Document Intelligence and Content Understanding](lab-09-document-intelligence-content-understanding/README.md) | Document AI |
-| 10 | [AI-103 Capstone and Course Review](lab-10-ai103-capstone-course-review/README.md) | Integrated review |
+1. [Plan a Foundry project](lab-01-plan-a-foundry-project/README.md) — Plan and manage; [exact Microsoft exercise](official/mslearn-ai-studio/Instructions/Exercises/01-Explore-ai-studio.md)
+2. [Evaluate models and release guardrails](lab-02-evaluate-models-and-release-guardrails/README.md) — Plan and manage; [exact Microsoft exercise](official/mslearn-ai-studio/Instructions/Exercises/02-model-catalog-evaluation.md)
+3. [Build a generative chat app](lab-03-build-a-generative-chat-app/README.md) — Generative AI and agentic; [exact Microsoft exercise](official/mslearn-ai-studio/Instructions/Exercises/03-foundry-sdk.md)
+4. [Build a Foundry agent](lab-04-build-a-foundry-agent/README.md) — Generative AI and agentic; [exact Microsoft exercise](official/mslearn-ai-agents/Instructions/Exercises/01-build-agent-portal-and-vscode.md)
+5. [Use a custom tool in an agent](lab-05-use-a-custom-tool-in-an-agent/README.md) — Generative AI and agentic; [exact Microsoft exercise](official/mslearn-ai-agents/Instructions/Exercises/02-agent-custom-tools.md)
+6. [Develop a vision-enabled chat app](lab-06-develop-a-vision-enabled-chat-app/README.md) — Computer vision; [exact Microsoft exercise](official/mslearn-ai-vision/Instructions/Exercises/01-gen-ai-vision.md)
+7. [Analyze text](lab-07-analyze-text/README.md) — Text analysis; [exact Microsoft exercise](official/mslearn-ai-language/Instructions/Exercises/01-analyze-text.md)
+8. [Develop a text analysis agent](lab-08-develop-a-text-analysis-agent/README.md) — Text analysis; [exact Microsoft exercise](official/mslearn-ai-language/Instructions/Exercises/02-language-agent.md)
+9. [Extract multimodal information](lab-09-extract-multimodal-information/README.md) — Information extraction; [exact Microsoft exercise](official/mslearn-ai-information-extraction/Instructions/Exercises/01-content-understanding.md)
+10. [Build a knowledge mining solution](lab-10-build-a-knowledge-mining-solution/README.md) — Information extraction; [exact Microsoft exercise](official/mslearn-ai-information-extraction/Instructions/Exercises/04-knowledge-mining.md)
 
-## Exam domain map
-
-| AI-103 domain | Weight | Labs |
-| --- | --- | --- |
-| Plan and manage an Azure AI solution | 25–30% | 01, 02, 10 |
-| Implement generative AI and agentic solutions | 30–35% | 03, 04, 10 |
-| Implement computer vision solutions | 10–15% | 05, 10 |
-| Implement text analysis solutions | 10–15% | 06, 07, 10 |
-| Implement information extraction solutions | 10–15% | 08, 09, 10 |
+The official AI-103T00-A course spans four days; this WSQ course spans two days. All copied source files remain intact while the teaching schedule selects ten exercises.

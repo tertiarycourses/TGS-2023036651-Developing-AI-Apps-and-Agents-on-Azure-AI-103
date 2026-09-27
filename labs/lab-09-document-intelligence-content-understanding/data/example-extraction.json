@@ -1,1 +1,0 @@
-{"document_id":"DOC-001","analyzer_version":"sample-only","fields":{"part_number":{"value":"B-17","confidence":0.99,"source_span":"B-17"},"fault":{"value":"cracked valve","confidence":0.92,"source_span":"cracked valve"},"action":{"value":"Replace valve and inspect seal","confidence":0.68,"source_span":"Replace valve and inspect seal"}},"review_required":true}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the AI-103 WSQ v3.0 trainer deck, Learner Guide, and Lesson Plan.
+"""Build the AI-103 WSQ v5.0 trainer deck, Learner Guide, and Lesson Plan.
 
 The deck is mechanism-led: detailed procedures remain in the Learner Guide and
 each instructional slide is anchored by architecture, runtime flow, an exact
@@ -39,7 +39,7 @@ TITLE = "Developing AI Apps and Agents on Azure (AI-103)"
 CODE = "TGS-2023036651"
 TSC = "Artificial Intelligence Application in Product Development"
 TSC_CODE = "ICT-TEM-4034-1.1"
-VERSION = "4.0"
+VERSION = "5.0"
 DATE = "27 Sep 2026"
 ORG = "Tertiary Infotech Academy Pte Ltd"
 UEN = "201200696W"
@@ -47,6 +47,7 @@ COURSE_URL = "https://www.tertiarycourses.com.sg/"
 REPO_URL = "https://github.com/tertiarycourses/TGS-2023036651-Developing-AI-Apps-and-Agents-on-Azure-AI-103"
 LMS_URL = "https://lms-tms.tertiaryinfotech.com/"
 AI103_GUIDE = "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103"
+OFFICIAL = json.loads((LABS / "LAB-SELECTION-v5.0.json").read_text())
 
 PPTX = CW / f"{TITLE}-v{VERSION}.pptx"
 LG = CW / f"LG-{TITLE}.docx"
@@ -119,7 +120,7 @@ TOPICS = [
         domain="PLAN & MANAGE · AI-103 25–30%",
         architecture=[("Identity", "Managed identity + least-privilege RBAC"), ("Network", "Private endpoint + controlled egress"), ("Runtime", "Foundry project, models, tools, connections"), ("Evidence", "Azure Monitor logs, metrics, traces, alerts")],
         flow=["Classify workload", "Select service", "Provision identity", "Apply network controls", "Observe SLOs"],
-        contracts=[("Project endpoint", "https://<resource>.services.ai.azure.com/api/projects/<project>", "Foundry SDK"), ("Auth", "DefaultAzureCredential", "Entra token; avoid embedded keys"), ("RBAC", "Cognitive Services User", "Data-plane inference"), ("Diagnostics", "RequestResponse + Audit", "Send to Log Analytics")],
+        contracts=[("Project endpoint", "https://<resource>.services.ai.azure.com/api/projects/<project>", "Foundry SDK"), ("Auth", "DefaultAzureCredential", "Entra token; avoid embedded keys"), ("RBAC", "Foundry User", "Project development; check endpoint-specific inference role"), ("Diagnostics", "RequestResponse + Audit", "Send to Log Analytics")],
         code="from azure.identity import DefaultAzureCredential\nfrom azure.ai.projects import AIProjectClient\nclient = AIProjectClient(endpoint=PROJECT_ENDPOINT,\n                         credential=DefaultAzureCredential())\nfor conn in client.connections.list():\n    print(conn.name, conn.type)",
         chart=(['availability', 'p95 latency', 'error rate', 'cost'], [99.95, 82, 1.2, 68], "Indicative dashboard: availability is a percentage; other values are normalized to target. Investigate any measure below its target band."),
         decision=("Does the workload need Foundry-native agents, evaluation, or tracing?", "Use Foundry SDK + project endpoint", "Use the task-specific Foundry Tool or OpenAI-compatible endpoint"),
@@ -238,6 +239,19 @@ TOPICS = [
         image="ai102-foundry-control-plane.png",
     ),
 ]
+
+# Keep the five exam domains while following the exact MicrosoftLearning
+# exercise order selected for this two-day delivery.
+_prior_topics = TOPICS
+TOPICS = [dict(_prior_topics[i]) for i in [0, 1, 2, 3, 3, 4, 6, 5, 8, 7]]
+for topic, lab in zip(TOPICS, OFFICIAL):
+    topic["title"] = lab["title"]
+    topic["domain"] = lab["domain"].upper() + " · AI-103"
+    topic["verify"] = (
+        f"Complete the pinned MicrosoftLearning exercise {lab['source_path']}; "
+        "capture its expected output, relevant version/endpoint, one measured result, "
+        "and an explained failure or limitation."
+    )
 
 
 class Deck:
@@ -443,6 +457,71 @@ class Deck:
         self.text(s,.85,5.92,11.63,.34,f"Complete click-by-click procedure: Learner Guide · Lab {lab.num:02d} · {lab.path.relative_to(ROOT)}",11,GREY)
         self.footer(s)
 
+    def official_source_slides(self, n: int, topic: dict, accent: str):
+        """Eight technical teaching views anchored to the pinned, unchanged lab."""
+        meta = OFFICIAL[n - 1]
+        repo = LABS / "official" / meta["source_repository"]
+        source = LABS / meta["source_path"]
+        body = source.read_text(encoding="utf-8")
+        manifest = json.loads((LABS / "OFFICIAL-SOURCE-MANIFEST.json").read_text())
+        sha = manifest[meta["source_repository"]]["commit"][:12]
+        paths = list(manifest[meta["source_repository"]]["files"])
+        referenced = [x.rstrip(".,);`'") for x in re.findall(r"(?:Labfiles|labfiles)/[\w./-]+", body)
+                      if (repo / x.rstrip(".,);`'")).exists()]
+        source_rel = str(source.relative_to(repo))
+        extras = [source_rel, "LICENSE"] + [p for p in ("README.md", "readme.md", "index.md") if (repo / p).exists()]
+        referenced = list(dict.fromkeys(referenced + extras))
+        for p in paths:
+            if len(referenced) >= 4:
+                break
+            if p not in referenced:
+                referenced.append(p)
+        fragments = [x.strip() for x in re.findall(r"```[^\n]*\n(.*?)```", body, re.S)
+                     if len(x.strip()) >= 80 and re.search(r"\b(import|from|az|pip|curl|client|response|model)\b|[={}]", x)]
+        fragments.sort(key=len, reverse=True)
+        asset_prefixes = tuple(p.rsplit("/", 1)[0] + "/" for p in referenced if p.startswith(("Labfiles/", "labfiles/")))
+        for p in paths:
+            if len(fragments) >= 3:
+                break
+            if p.endswith(".py") and asset_prefixes and p.startswith(asset_prefixes) and not any(v in p.lower() for v in ("solution/", "test_")):
+                lines = (repo / p).read_text(encoding="utf-8", errors="ignore").splitlines()
+                fragment = "\n".join(x for x in lines if x.strip() and not x.lstrip().startswith("#"))[:650]
+                if fragment:
+                    fragments.append(fragment)
+        for fallback in [topic["code"],
+                         "\n".join(f"{a}: {b}  # {c}" for a, b, c in topic["contracts"]),
+                         "\n".join(f"{a}: {b}" for a, b in topic["architecture"])]:
+            if len(fragments) >= 3:
+                break
+            if fallback not in fragments:
+                fragments.append(fallback)
+        fragments = ["\n".join(x.splitlines()[:10])[:680] for x in fragments[:3]]
+        headings = [re.sub(r"[#*`]", "", x).strip() for x in re.findall(r"(?m)^##+ (.+)$", body)]
+        headings = [x for x in headings if x.lower() not in ("clean up", "cleanup", "summary")]
+        phases = headings[:5]
+        while len(phases) < 5:
+            phases.append(["Configure", "Run", "Inspect", "Evaluate", "Record"][len(phases)])
+        self.table(f"topic{n:02d}_source", f"Official lab {n:02d} · pinned source", "MICROSOFTLEARNING · EXACT FILES",
+                   [("Repository", meta["source_repository"], "MIT source snapshot"),
+                    ("Revision", sha, "SHA-256 per file in source manifest"),
+                    ("Exercise", source.name, "Unchanged instruction file"),
+                    ("Domain", meta["domain"], "AI-103 study guide")], accent)
+        self.cards(f"topic{n:02d}_inputs", f"Official lab {n:02d} · input boundaries", "ASSET AND RUNTIME CONTRACT",
+                   [("EXERCISE", source.name[:42]), ("ASSET 1", referenced[0][-46:]),
+                    ("ASSET 2", referenced[1][-46:]), ("RUNTIME", "Azure subscription · Python 3.13 · Foundry")], accent)
+        for j, fragment in enumerate(fragments, 1):
+            self.code_points(f"topic{n:02d}_sourcecode{j}", f"Official lab {n:02d} · implementation {j}",
+                             "SOURCE EXCERPT OR DOMAIN CONTRACT · SEE UNCHANGED LAB", fragment, accent)
+        self.process(f"topic{n:02d}_sourceflow", f"Official lab {n:02d} · mechanism phases",
+                     "SOURCE EXERCISE · NAMED RUNTIME STATES", phases[:5], accent)
+        self.table(f"topic{n:02d}_assets", f"Official lab {n:02d} · source assets", "REPRODUCIBLE FILE CONTRACT",
+                   [(f"Asset {j}", p[:65], "Exact path in pinned source") for j, p in enumerate(referenced[:4], 1)], accent)
+        self.table(f"topic{n:02d}_evidence", f"Official lab {n:02d} · evidence record", "INPUT · OUTPUT · CONTROL · DECISION",
+                   [("Input", "resource / model / source version", "Capture before run"),
+                    ("Output", "result / request ID / trace", "Compare to exercise expectation"),
+                    ("Metric", "quality / latency / cost", "State unit and sample"),
+                    ("Control", "failure / limit / next action", "Explain product implication")], accent)
+
     def verify(self,key,lab:Lab,topic,accent=GREEN):
         s=self.add(key); self.header(s,f"Lab {lab.num:02d}: acceptance evidence","VERIFY · DIAGNOSE · RECORD",accent)
         self.shape(s,MSO_SHAPE.ROUNDED_RECTANGLE,.85,1.95,7.25,3.78,"E8F7EE",GREEN)
@@ -509,17 +588,17 @@ class Deck:
         self.trainer("admin_trainer_general",True); self.trainer("admin_trainer_named",False)
         self.admin_cards("admin_ground_rules","Ground Rules","LEARNING ENVIRONMENT",[("PUNCTUAL","Return from breaks on time"),("PARTICIPATE","Explain decisions and evidence"),("PROTECT DATA","Use synthetic/non-confidential inputs"),("ASK EARLY","Raise blockers before they cascade")],BLUE)
         self.admin_cards("admin_outcomes","Learning Outcomes","TSC ALIGNMENT",[("LO1","Analyse Azure AI algorithms and efficiency"),("LO2","Evaluate strengths and limitations"),("LO3","Assess feasibility and improvements"),("EVIDENCE","Explain what proves each conclusion")],VIOLET)
-        self.admin_cards("admin_schedule","Two-Day Lesson Plan","9:00 AM–6:00 PM",[("DAY 1 AM","Planning, governance, generative AI"),("DAY 1 PM","Agents, vision, language/speech"),("DAY 2 AM","Custom language, search, extraction"),("DAY 2 PM","Capstone + 2-hour assessment")],TEAL)
+        self.admin_cards("admin_schedule","Two-Day Lesson Plan","9:00 AM–6:00 PM",[("DAY 1 AM","Foundry project, model evaluation, chat app"),("DAY 1 PM","Agents, custom tools, vision"),("DAY 2 AM","Text analysis, text agent, content understanding"),("DAY 2 PM","Knowledge mining + 2-hour assessment")],TEAL)
         self.admin_cards("admin_exam_status","AI-103 Course Scope","CURRENT AS OF 27 SEP 2026",[("EXAM","AI-103: Developing AI Apps and Agents on Azure"),("SCOPE","Skills measured from 16 Apr 2026"),("COURSE","WSQ TGS-2023036651 · two days"),("FOCUS","Foundry apps, agents, multimodal and extraction")],AMBER)
         self.hyperlink_card("admin_ai103","Current Microsoft certification pathway",AI103_GUIDE,"AI-103: Developing AI Apps and Agents on Azure · skills measured from 16 Apr 2026",BLUE,"Microsoft Learn · AI-103 Study Guide")
         self.admin_cards("admin_briefing","Briefing for Assessment","READ BEFORE ASSESSMENT",[("OPEN BOOK","Use approved slides and Learner Guide"),("INDIVIDUAL","No discussion or shared answers"),("EVIDENCE","Answer every K/A criterion"),("SUBMISSION","Upload through the LMS")],VIOLET)
         self.admin_cards("admin_assessment","Assessment","APPROVED PLAN",[("WA-SAQ","6 open-ended questions · K1–K6"),("PP","6 lab-evidence tasks · A1–A6"),("TIMING","60 minutes each"),("OUTCOME","Competent / Not Yet Competent")],VIOLET)
         self.assessment_flow("admin_assessment_flow",True)
         self.hyperlink_card("admin_lms","Courseware and Assessment on the LMS",LMS_URL,"Download the learner materials and submit the two candidate papers on the LMS",TEAL,"LMS-TMS · Courseware and Assessment")
-        self.hyperlink_card("admin_labs","Access the Hands-On Labs",REPO_URL,"Clone the repository or use GitHub · Code · Download ZIP; every lab has its own folder and detailed README",BLUE,"GitHub · AI-103 Hands-On Labs")
-        self.section_slide("day1",0,"Day 1","Planning · governance · generative AI · agents · vision · language",BLUE)
+        self.hyperlink_card("admin_labs","Access the Hands-On Labs",REPO_URL,"Open the ten numbered lab guides and the pinned, unchanged MicrosoftLearning source snapshots",BLUE,"GitHub · AI-103 Official Lab Materials")
+        self.section_slide("day1",0,"Day 1","Foundry planning · models · chat · agents · vision",BLUE)
         for i,(topic,lab) in enumerate(zip(TOPICS,self.labs),1):
-            if i==7: self.section_slide("day2",0,"Day 2","Custom language · search · information extraction · capstone",TEAL)
+            if i==7: self.section_slide("day2",0,"Day 2","Text analysis · agents · content understanding · knowledge mining",TEAL)
             accent=PALETTE[(i-1)%len(PALETTE)]
             self.section_slide(f"topic{i:02d}",i,topic["title"],topic["domain"],accent)
             if topic.get("image"):
@@ -534,6 +613,7 @@ class Deck:
             self.decision(f"topic{i:02d}_decision",topic["title"]+" · decision rule","CHOOSE FROM EVIDENCE",q,yes,no,accent)
             self.failures(f"topic{i:02d}_failure",topic["title"]+" · failure and control","DIAGNOSE BEFORE RETRY",topic["failures"])
             self.activity(f"lab{i:02d}_activity",lab,topic,accent)
+            self.official_source_slides(i, topic, accent)
             self.verify(f"lab{i:02d}_verify",lab,topic)
         self.section_slide("closing",0,"Assessment and course close","Evidence submission · assessment flow · support",VIOLET)
         self.hyperlink_card("closing_support","Course enquiries and support",COURSE_URL,"Contact Tertiary Courses for current course details, schedules, and registration",BLUE,"Tertiary Courses · Course Enquiries")
@@ -599,7 +679,7 @@ def version_record(doc:Document,summary:str):
         cell=t.rows[0].cells[i]; cell.text=h; cell._tc.get_or_add_tcPr().append(shading(BLUE));
         for p in cell.paragraphs:
             for r in p.runs: doc_font(r,9.2,True,WHITE)
-    for vals in [("2.0","26 Aug 2026","Prior AI-102 courseware release",ORG),("3.0","27 Sep 2026","AI-103 title transition",ORG),(VERSION,DATE,summary,ORG)]:
+    for vals in [("2.0","26 Aug 2026","Prior AI-102 courseware release",ORG),("3.0","27 Sep 2026","AI-103 title transition",ORG),("4.0","27 Sep 2026","Five-domain AI-103 courseware and original Tertiary labs",ORG),(VERSION,DATE,summary,ORG)]:
         cells=t.add_row().cells
         for i,v in enumerate(vals): cells[i].text=v
         for cell in cells:
@@ -658,7 +738,7 @@ def render_markdown(doc:Document,text:str):
 
 
 def build_lg(labs:list[Lab]):
-    d=Document(); setup_doc(d); cover(d,"Learner Guide"); version_record(d,"AI-103 course title and current Foundry scope; technical evidence model; 10 detailed self-contained labs."); toc(d,["How to Use This Guide","Before You Start"]+[f"Lab {lab.num:02d} - {lab.title}" for lab in labs]+["Quick Command Reference","Assessment Flow and Support"])
+    d=Document(); setup_doc(d); cover(d,"Learner Guide"); version_record(d,"Pinned MicrosoftLearning exercises and assets copied unchanged; ten selected labs aligned to AI-103 domains, slides, and WSQ evidence."); toc(d,["How to Use This Guide","Before You Start"]+[f"Lab {lab.num:02d} - {lab.title}" for lab in labs]+["Quick Command Reference","Assessment Flow and Support"])
     d.add_heading("How to Use This Guide",level=1)
     d.add_paragraph("Use the trainer deck to understand mechanisms and decisions. Use this guide for the detailed click paths, commands, code, expected results, diagnostics, and evidence required in each lab.")
     add_table(d,["Authority","Current reference"],[["Approved course",f"{TITLE} · {CODE} · 2 days / 16 hours"],["Course enquiries",COURSE_URL],["AI-103 study guide","Skills measured from 16 Apr 2026"],["Microsoft course","AI-103T00-A: Develop AI apps and agents on Azure"],["LMS",LMS_URL]])
@@ -669,6 +749,12 @@ def build_lg(labs:list[Lab]):
         d.add_heading(f"Lab {lab.num:02d} - {lab.title}",level=1)
         d.add_paragraph(f"Source folder: {lab.path.parent.relative_to(ROOT) if lab.path.name=='README.md' else lab.path.relative_to(ROOT)}")
         render_markdown(d,lab.text)
+        official_path = LABS / OFFICIAL[lab.num-1]["source_path"]
+        official_text = official_path.read_text(encoding="utf-8")
+        official_text = re.sub(r"\A---\s*\n.*?\n---\s*\n", "", official_text, flags=re.S)
+        d.add_heading("Unchanged MicrosoftLearning exercise instructions",level=2)
+        d.add_paragraph(f"Exact Markdown source and companion assets: labs/{OFFICIAL[lab.num-1]['source_path']}. Follow the numbered instructions below with the source assets. MicrosoftLearning MIT license and pinned revision are in labs/official/ and the source manifest.")
+        render_markdown(d,official_text)
         d.add_heading("Acceptance Evidence",level=2)
         d.add_paragraph(TOPICS[lab.num-1]["verify"])
         d.add_heading("Troubleshooting Checklist",level=2)
@@ -684,7 +770,7 @@ def build_lg(labs:list[Lab]):
 
 
 def build_lp(labs:list[Lab],m:dict[str,int]):
-    d=Document(); setup_doc(d); cover(d,"Lesson Plan"); version_record(d,"Updated to v4.0 deck slide map, AI-103 scope, 10 mechanism-led labs, and approved 60+60 minute assessments."); toc(d,["Course Overview","Learning Outcomes","Daily Schedule","Topic-by-Topic Breakdown","Resources Required","Assessment"])
+    d=Document(); setup_doc(d); cover(d,"Lesson Plan"); version_record(d,"Updated to v5.0 deck slide map, pinned MicrosoftLearning lab sources, five AI-103 domains, and approved 60+60 minute assessments."); toc(d,["Course Overview","Learning Outcomes","Daily Schedule","Topic-by-Topic Breakdown","Resources Required","Assessment"])
     d.add_heading("Course Overview",level=1)
     d.add_paragraph("A two-day instructor-led WSQ course that develops the ability to analyse, evaluate, and improve Azure AI solutions through Microsoft Foundry services, governed engineering decisions, and observable evidence.")
     d.add_heading("Learning Outcomes",level=1)

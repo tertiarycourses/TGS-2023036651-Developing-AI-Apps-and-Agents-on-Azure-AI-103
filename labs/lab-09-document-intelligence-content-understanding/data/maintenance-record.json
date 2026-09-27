@@ -1,1 +1,0 @@
-{"document_id":"DOC-001","modality":"text","source_text":"Unit B-17 has a cracked valve. Replace valve and inspect seal before restart.","expected_fields":["part_number","fault","action"],"privacy":"synthetic training record"}
