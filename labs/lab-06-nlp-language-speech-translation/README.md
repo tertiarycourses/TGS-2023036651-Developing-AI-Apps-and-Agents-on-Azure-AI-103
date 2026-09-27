@@ -50,6 +50,10 @@ Document:
 - Speech-to-speech translation.
 - Human review for critical messages.
 
+### 6. AI-103 Speech as an Agent Modality
+
+For a synthetic spoken customer request, trace audio input → speech-to-text → text analysis → agent tool → text-to-speech response. Record the locale, transcript confidence or recognition reason, sensitive-content redaction, domain-term translation check, fallback for `NoMatch`, and human escalation point. If a live Speech resource is unavailable, label the trace as a design simulation rather than a service result.
+
 ## Validation
 
 You should have language task mapping, text pipeline, speech pipeline, SSML notes, and translation notes.

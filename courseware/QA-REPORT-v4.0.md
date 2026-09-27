@@ -1,4 +1,4 @@
-# AI-102 Courseware QA v2.0
+# AI-103 Courseware QA v4.0
 
 Structural/alignment audit. Rendered visual audit is recorded separately.
 
@@ -16,7 +16,7 @@ Structural/alignment audit. Rendered visual audit is recorded separately.
 - PASS — All transitions
 - PASS — Zero shape-bound overflow — []
 - PASS — Visual density — mean 25.0; median 26.0; max 46
-- PASS — Current exam status
+- PASS — Current AI-103 scope
 - PASS — Zero unanchored instructional slides — 93 anchored; 0 GENERAL
 
 ## B Assessment: PASS
@@ -41,7 +41,7 @@ Structural/alignment audit. Rendered visual audit is recorded separately.
 - PASS — Cover/version
 - PASS — Live TOC
 - PASS — Ten detailed labs
-- PASS — No LG Markdown mirror
+- PASS — LG Markdown mirror
 
 ## E Labs: PASS
 - PASS — Ten individual lab folders — 10
@@ -58,14 +58,14 @@ Structural/alignment audit. Rendered visual audit is recorded separately.
 | --- | --- | --- |
 | K1 | WA Question 1 | Trainer slide 20 |
 | K2 | WA Question 2 | Trainer slide 116 |
-| K3 | WA Question 3 | Trainer slide 85 |
+| K3 | WA Question 3 | Trainer slide 54 |
 | K4 | WA Question 4 | Trainer slide 92 |
-| K5 | WA Question 5 | Trainer slide 53 |
+| K5 | WA Question 5 | Trainer slide 63 |
 | K6 | WA Question 6 | Trainer slide 100 |
 | A1 | PP Task 1 | Lab 03; trainer slide 46 |
 | A2 | PP Task 2 | Lab 08; trainer slide 97 |
-| A3 | PP Task 3 | Labs 05–06; trainer slide 66 |
-| A4 | PP Task 4 | Labs 07–08; trainer slide 87 |
+| A3 | PP Task 3 | Labs 05 and 07; trainer slide 66 |
+| A4 | PP Task 4 | Lab 04; trainer slide 56 |
 | A5 | PP Task 5 | Lab 09; trainer slide 108 |
 | A6 | PP Task 6 | Lab 10; trainer slide 119 |
 

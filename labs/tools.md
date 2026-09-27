@@ -5,7 +5,7 @@
 | Tool | Purpose |
 | --- | --- |
 | Azure portal | Provision and manage AI resources. |
-| Azure AI Foundry | Build generative AI, model, prompt flow, and agent solutions. |
+| Azure AI Foundry | Build generative AI apps, model evaluation, and agent workflows. |
 | Azure Cloud Shell | Run Azure CLI commands. |
 | Visual Studio Code | Edit code, REST files, and JSON payloads. |
 | REST client or Postman | Test APIs and endpoints. |
@@ -24,7 +24,7 @@
 Create these during class:
 
 ```text
-ai102-lab-notes.md
+ai103-lab-notes.md
 azure-ai-services-map.md
 responsible-ai-checklist.md
 prompt-flow-evaluation-notes.md

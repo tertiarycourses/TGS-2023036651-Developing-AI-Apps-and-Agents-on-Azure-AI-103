@@ -67,6 +67,10 @@ Hybrid search
 
 Explain file, object, and table projections and when enriched output should be stored.
 
+### 6. Ground an Agent on Retrieved Evidence
+
+Use `data/support-docs.json` and `data/judged-queries.json`. Design one BM25 query, one vector query, and one hybrid query with a tenant filter applied before results reach an agent. Save each result ranking as JSON in the shape of `data/example-rankings.json` and run `python3 evaluate.py <your-rankings.json>`. Record a citation to the winning chunk and a no-evidence answer. Compare relevance, p95 latency, and estimated cost for the three modes; label any invented values as illustrative. State how an indexer failure or stale source would be detected. The local scorer checks relevance and tenant isolation; it does not call Azure AI Search or measure live latency.
+
 ## Validation
 
 You should have index design, data source/indexer plan, skillset plan, query examples, and knowledge store notes.

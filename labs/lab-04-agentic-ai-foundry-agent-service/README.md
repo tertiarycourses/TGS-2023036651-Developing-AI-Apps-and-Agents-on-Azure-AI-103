@@ -58,6 +58,10 @@ User request -> agent plan -> tool call -> observation -> model reasoning -> res
 
 Explain when separate agents might be useful for retrieval, billing, technical support, and escalation review.
 
+### 6. Capture a Bounded Agent Trace
+
+Define a typed `search_knowledge(query, tenant_id)` tool and a typed `create_ticket(summary, priority)` tool. Inspect `data/example-traces.json`, then create your own allowed and denied traces with goal, chosen tool, validated arguments, tool result, cited evidence, approval decision, and final response. Run `python3 validate.py <your-traces.json>` and save the PASS output. Repeat with a cross-tenant search or unapproved ticket creation; the trace must show denial. Compare a single-agent implementation with a specialist handoff, including state partition, turn budget, latency, and failure ownership. The local checker is a synthetic control test. Use real Foundry traces only when an approved training deployment is available.
+
 ## Validation
 
 You should have agent use case, resource plan, tool table, orchestration diagram, and multi-agent notes.

@@ -1,10 +1,10 @@
-# Lab 03 - Generative AI, Foundry, Azure OpenAI, Prompt Flow, RAG
+# Lab 03 - Generative AI, Foundry, Azure OpenAI, Foundry Workflow, RAG
 
 ## Objectives
 
 - Plan a generative AI solution with Microsoft Foundry.
 - Select and deploy a model conceptually.
-- Design prompt templates and prompt flow.
+- Design prompt templates, Foundry SDK workflows, and retrieval-augmented generation.
 - Implement a RAG pattern conceptually.
 - Evaluate model and flow outputs.
 
@@ -36,7 +36,7 @@ Create templates for:
 2. Answer with sources.
 3. Escalation when context is missing.
 
-### 3. Plan Prompt Flow
+### 3. Plan Foundry Workflow
 
 Draw:
 
@@ -71,7 +71,7 @@ Score:
 
 ## Validation
 
-You should have model selection notes, prompt templates, prompt flow diagram, RAG design, and evaluation table.
+You should have model selection notes, prompt templates, tool-augmented workflow diagram, RAG design, and evaluation table.
 
 ## Checkpoint Questions
 

@@ -69,6 +69,10 @@ Use diagrams.net:
 Application -> API layer -> Foundry/Azure AI services -> Search index/storage -> Monitoring
 ```
 
+### 6. AI-103 Deployment and Operations Decision
+
+For one Foundry app and one agent, record the model/deployment choice, project connection, managed identity, private-network decision, quota, and CI/CD promotion path. Define a release record with a pinned model version, an evaluation dataset, a rollback target, and owners for cost and safety alerts. Use a synthetic architecture if the trainer has not provided an Azure subscription.
+
 ## Validation
 
 You should have a service map, security plan, monitoring plan, and architecture diagram.

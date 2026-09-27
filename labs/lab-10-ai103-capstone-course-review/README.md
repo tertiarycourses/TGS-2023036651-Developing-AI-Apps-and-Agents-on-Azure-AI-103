@@ -1,4 +1,4 @@
-# Lab 10 - AI-102 Capstone and Course Review
+# Lab 10 - AI-103 Capstone and Course Review
 
 ## Objectives
 
@@ -6,6 +6,7 @@
 - Map requirements to Microsoft Foundry and Azure AI services.
 - Include security, monitoring, responsible AI, and cost controls.
 - Build a personal review plan.
+- Show how a Foundry agent uses retrieval, tools, and human approval to complete the workflow.
 
 ## Scenario
 
@@ -17,7 +18,7 @@ You must design a production-ready customer support AI platform that supports gr
 
 | Requirement | Service |
 | --- | --- |
-| Grounded assistant | Foundry, Azure OpenAI, prompt flow, RAG |
+| Grounded assistant | Microsoft Foundry model deployment, retrieval, RAG |
 | Agent workflow | Foundry Agent Service |
 | Document search | Azure AI Search |
 | Sentiment and PII | Azure AI Language |
@@ -66,14 +67,16 @@ Document:
 | Implement agentic solution |  |  |
 | Implement computer vision solutions |  |  |
 | Implement NLP solutions |  |  |
-| Implement knowledge mining and information extraction |  |  |
+| Implement information extraction and grounding |  |  |
+
+Map the final design against the [AI-103 skills guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103): planning and management; generative AI and agents; computer vision; text analysis; and information extraction. For each area, identify one test case, one failure case, and the evidence needed for acceptance.
 
 ### 5. Clean Up Resources
 
 If you created resources:
 
 ```bash
-az group delete --name rg-ai102-lab --yes --no-wait
+az group delete --name <your-own-lab-resource-group> --yes --no-wait
 ```
 
 Confirm with your instructor before deleting shared resources.
@@ -81,7 +84,7 @@ Confirm with your instructor before deleting shared resources.
 ### 6. Create a 7-Day Review Plan
 
 1. Day 1: Planning, security, monitoring, responsible AI.
-2. Day 2: Generative AI, prompt flow, RAG.
+2. Day 2: Generative AI apps, agents, and grounding.
 3. Day 3: Agents and orchestration.
 4. Day 4: Vision and video.
 5. Day 5: NLP, speech, translation, question answering.

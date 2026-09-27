@@ -66,6 +66,10 @@ Decide what should happen when:
 
 Define how to report, investigate, remediate, and prevent repeat AI safety incidents.
 
+### 6. Evaluate an Agent Safeguard
+
+Add a tool call that could change a customer ticket. Define a risk tier, allowed tool arguments, human approval threshold, prompt-injection test, audit trace, and kill switch. Test one permitted case and one denied case using a trainer-provided synthetic trace or a live training agent. Mark synthetic traces as simulations. Explain which safety metric blocks release even if quality and latency pass.
+
 ## Validation
 
 You should have responsible AI controls, safety policy, scenario decisions, and incident plan.

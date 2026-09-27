@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the AI-102 WSQ v2.0 trainer deck, Learner Guide, and Lesson Plan.
+"""Build the AI-103 WSQ v3.0 trainer deck, Learner Guide, and Lesson Plan.
 
 The deck is mechanism-led: detailed procedures remain in the Learner Guide and
 each instructional slide is anchored by architecture, runtime flow, an exact
@@ -35,18 +35,17 @@ ROOT = Path(__file__).resolve().parents[1]
 CW = ROOT / "courseware"
 ASSETS = CW / "assets"
 LABS = ROOT / "labs"
-TITLE = "Microsoft Certified Azure AI Engineer Associate AI-102 Training"
+TITLE = "Developing AI Apps and Agents on Azure (AI-103)"
 CODE = "TGS-2023036651"
 TSC = "Artificial Intelligence Application in Product Development"
 TSC_CODE = "ICT-TEM-4034-1.1"
-VERSION = "2.0"
-DATE = "26 Aug 2026"
+VERSION = "4.0"
+DATE = "27 Sep 2026"
 ORG = "Tertiary Infotech Academy Pte Ltd"
 UEN = "201200696W"
-COURSE_URL = "https://www.tertiarycourses.com.sg/wsq-microsoft-certified-azure-ai-engineer-associate-ai-102-training.html"
-REPO_URL = "https://github.com/tertiarycourses/TGS-2023036651-Microsoft-Certified-Azure-AI-Engineer-Associate-AI-102-Training"
+COURSE_URL = "https://www.tertiarycourses.com.sg/"
+REPO_URL = "https://github.com/tertiarycourses/TGS-2023036651-Developing-AI-Apps-and-Agents-on-Azure-AI-103"
 LMS_URL = "https://lms-tms.tertiaryinfotech.com/"
-AI102_GUIDE = "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-102"
 AI103_GUIDE = "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103"
 
 PPTX = CW / f"{TITLE}-v{VERSION}.pptx"
@@ -117,7 +116,7 @@ def load_labs() -> list[Lab]:
 TOPICS = [
     dict(
         title="Plan, secure, and operate Foundry services",
-        domain="PLAN & MANAGE · 20–25% OF FINAL AI-102 BLUEPRINT",
+        domain="PLAN & MANAGE · AI-103 25–30%",
         architecture=[("Identity", "Managed identity + least-privilege RBAC"), ("Network", "Private endpoint + controlled egress"), ("Runtime", "Foundry project, models, tools, connections"), ("Evidence", "Azure Monitor logs, metrics, traces, alerts")],
         flow=["Classify workload", "Select service", "Provision identity", "Apply network controls", "Observe SLOs"],
         contracts=[("Project endpoint", "https://<resource>.services.ai.azure.com/api/projects/<project>", "Foundry SDK"), ("Auth", "DefaultAzureCredential", "Entra token; avoid embedded keys"), ("RBAC", "Cognitive Services User", "Data-plane inference"), ("Diagnostics", "RequestResponse + Audit", "Send to Log Analytics")],
@@ -129,7 +128,7 @@ TOPICS = [
     ),
     dict(
         title="Responsible AI, content safety, and governance",
-        domain="PLAN & MANAGE · GOVERNANCE CONTROL LOOP",
+        domain="PLAN & MANAGE · AI-103 25–30%",
         architecture=[("Input guard", "Prompt shields + content classification"), ("Model policy", "Deployment filters + approved model/version"), ("Output guard", "Severity thresholds + groundedness checks"), ("Operations", "Human escalation + audit + incident response")],
         flow=["Discover risk", "Measure baseline", "Mitigate controls", "Release with limits", "Monitor & improve"],
         contracts=[("Hate / Sexual / Violence / Self-harm", "severity 0–6", "Block at policy threshold"), ("Prompt attack", "direct / indirect", "Reject, sanitize, or isolate tools"), ("PII", "category + offset + confidence", "Redact or route to reviewer"), ("Decision record", "model, dataset, metric, owner", "Versioned audit evidence")],
@@ -141,8 +140,8 @@ TOPICS = [
         image="ai102-responsible-ai-controls.png",
     ),
     dict(
-        title="Generative AI, prompt flow, and grounded RAG",
-        domain="GENERATIVE AI · 15–20% OF FINAL AI-102 BLUEPRINT",
+        title="Generative AI apps and grounded RAG",
+        domain="GENERATIVE AI & AGENTS · AI-103 30–35%",
         architecture=[("Ingest", "Chunk, clean, enrich, preserve source IDs"), ("Index", "Text + vector fields in one search index"), ("Retrieve", "Hybrid search + filters + semantic rerank"), ("Generate", "Grounded prompt + citations + evaluation")],
         flow=["Load corpus", "Chunk + embed", "Index metadata", "Retrieve top-k", "Generate with citations"],
         contracts=[("chunk_id", "string, key", "Stable evidence identifier"), ("content_vector", "Collection(Edm.Single)", "Dimensions match embedding model"), ("filter", "tenant_id eq 'T-42'", "Security boundary before generation"), ("top", "5–20", "Recall/latency trade-off")],
@@ -154,7 +153,7 @@ TOPICS = [
     ),
     dict(
         title="Agents, tools, memory, and multi-agent control",
-        domain="AGENTIC SOLUTIONS · 5–10% OF FINAL AI-102 BLUEPRINT",
+        domain="GENERATIVE AI & AGENTS · AI-103 30–35%",
         architecture=[("Agent", "Instructions + model + tool policy"), ("Tools", "Typed schema, narrow permissions, timeouts"), ("State", "Conversation/session state separated by user"), ("Control", "Tracing, approvals, budgets, kill switch")],
         flow=["Receive goal", "Plan next action", "Call approved tool", "Inspect observation", "Stop or continue"],
         contracts=[("Tool schema", "name + JSON parameters", "Reject unknown arguments"), ("Identity", "Dedicated agent principal", "No shared admin identity"), ("Budget", "max turns / tokens / cost", "Hard termination condition"), ("Trace", "span, tool call, result, decision", "Replayable evidence")],
@@ -165,44 +164,44 @@ TOPICS = [
         verify="Evidence pack: agent definition/version, tool schemas, least-privilege identity, approval gate, trace showing tool call/result, budget exhaustion test, and handoff test.",
     ),
     dict(
-        title="Computer vision, custom models, and video",
-        domain="COMPUTER VISION · 10–15% OF FINAL AI-102 BLUEPRINT",
-        architecture=[("Input", "Image/video URI or bytes + consent"), ("Inference", "Prebuilt analysis or custom model endpoint"), ("Post-process", "Threshold, region, label, moderation"), ("Evidence", "Prediction ID, model version, confidence")],
-        flow=["Validate media", "Normalize input", "Invoke model", "Apply threshold", "Store evidence"],
-        contracts=[("visualFeatures", "Caption, Tags, Objects, Read", "Request only needed features"), ("model-version", "2023-10-01 or pinned", "Prevent silent behavior drift"), ("confidence", "0.0–1.0", "Calibrate per class/use case"), ("region", "x, y, w, h", "Coordinate space tied to source")],
-        code="result = vision.analyze(\n    image_url=IMAGE_URL,\n    visual_features=[VisualFeatures.CAPTION,\n                     VisualFeatures.OBJECTS,\n                     VisualFeatures.READ])\nprint(result.caption.text, result.caption.confidence)",
-        chart=(['0.50', '0.65', '0.80', '0.90'], [92, 86, 74, 55], "Indicative recall by confidence threshold: a higher threshold reduces false positives but misses more valid objects. Select thresholds from the business cost of each error."),
-        decision=("Does a supported prebuilt feature meet the measured error budget?", "Use prebuilt vision and monitor drift", "Train/evaluate a custom model with representative labels"),
-        failures=[("Bad image", "Blur, crop, lighting", "Quality gate before inference"), ("Class imbalance", "Few minority examples", "Rebalance and report per-class metrics"), ("Threshold drift", "Production data shifts", "Monitor confidence distribution"), ("Privacy", "Faces/identifiers retained", "Consent, minimization, retention control")],
-        verify="Evidence pack: sample request/response, confidence policy, confusion matrix, model version, difficult-image tests, and privacy/retention decision.",
+        title="Image/video generation and multimodal understanding",
+        domain="COMPUTER VISION · AI-103 10–15%",
+        architecture=[("Input", "Brief or visual media + rights/consent"), ("Model", "Generation, editing, or multimodal analysis"), ("Guardrail", "Safety filter + visual claim review"), ("Output", "Asset, caption, alt text, grounded answer")],
+        flow=["Validate media", "Choose model/task", "Generate or analyze", "Check evidence", "Human approve"],
+        contracts=[("asset_id", "stable source/output ID", "Provenance and rollback"), ("model_version", "pinned deployment/version", "Reproducible evaluation"), ("claim", "text + source evidence", "Reject unsupported product facts"), ("review", "approved + reason + owner", "Publication gate")],
+        code="brief = {\"capacity_ml\": 500, \"allowed_claims\": [\"reusable\"]}\nclaims = [\"reusable\", \"48-hour cooling\"]\nunsupported = set(claims) - set(brief[\"allowed_claims\"])\nassert not unsupported, f\"Reject unsupported claims: {unsupported}\"",
+        chart=(['grounded', 'needs review', 'unsafe', 'unsupported'], [62, 20, 8, 10], "Illustrative review set (%): generation quality alone does not grant publication; groundedness, safety, accessibility, and human approval are separate gates."),
+        decision=("Does the task create new media or interpret existing visual evidence?", "Use generation/editing with brand and safety review", "Use multimodal understanding with provenance and grounded answers"),
+        failures=[("Fabricated claim", "Output exceeds source brief", "Compare with approved attributes"), ("Prompt injection", "Text embedded in image instructs agent", "Treat media as untrusted data"), ("Accessibility", "Alt text omits visual facts", "Evaluate against source image"), ("Rights", "Reference media lacks permission", "Validate provenance and consent")],
+        verify="Evidence pack: task selection, source brief, model/version, prompt, generated or sample output, caption and alt text, claim/safety review, and human publication decision.",
     ),
     dict(
         title="Language, speech, translation, and SSML",
-        domain="NATURAL LANGUAGE PROCESSING · 15–20% OF FINAL AI-102 BLUEPRINT",
+        domain="TEXT ANALYSIS · AI-103 10–15%",
         architecture=[("Text", "Language detection, entities, sentiment, PII"), ("Speech", "STT/TTS + custom speech"), ("Translation", "Text/document/speech translation"), ("Experience", "Locale, pronunciation, latency, fallback")],
         flow=["Detect locale", "Transcribe / parse", "Extract meaning", "Translate / synthesize", "Validate quality"],
         contracts=[("language", "en-SG / zh-Hans / auto", "Affects model and voice"), ("offset + length", "Unicode text span", "Preserve source mapping"), ("SSML", "voice, prosody, phoneme, break", "Controlled speech output"), ("recognition result", "text + reason + duration", "Handle NoMatch/Canceled")],
         code="<speak version=\"1.0\" xml:lang=\"en-SG\">\n  <voice name=\"en-SG-LunaNeural\">\n    Your request is <prosody rate=\"-5%\">approved</prosody>.\n  </voice>\n</speak>",
         chart=(['quiet', 'office', 'street', 'call'], [6.8, 11.4, 19.7, 14.2], "Indicative word error rate (%): acoustic context changes recognition quality. Test the real channel and vocabulary; do not accept a studio-only benchmark."),
-        decision=("Does the application need deterministic intents/entities or flexible generation?", "Use CLU/CQA or structured extraction", "Use a generative model with schema validation and safety controls"),
+        decision=("Does the application need deterministic intents/entities or flexible generation?", "Use Azure Language or typed structured extraction", "Use a generative model with schema validation and safety controls"),
         failures=[("NoMatch", "Audio/language mismatch", "Inspect reason and locale"), ("PII leak", "Transcript retained", "Redact before logging"), ("Bad pronunciation", "Voice/phoneme mismatch", "Use SSML phoneme/lexicon"), ("Translation drift", "Domain terms mistranslated", "Glossary/custom model + review")],
         verify="Evidence pack: multilingual samples, PII span/redaction, recognition reasons, SSML output, word-error-rate sample, and human review for domain terms.",
     ),
     dict(
-        title="Custom language understanding and question answering",
-        domain="NLP · CUSTOM MODELS AND KNOWLEDGE ANSWERS",
-        architecture=[("Authoring", "Intents, entities, utterances, Q&A sources"), ("Training", "Versioned dataset + split + label policy"), ("Deployment", "Named deployment + endpoint"), ("Recovery", "Export, backup, redeploy, regression tests")],
-        flow=["Define labels", "Add examples", "Train version", "Evaluate errors", "Deploy + regress"],
-        contracts=[("projectName", "stable logical name", "Export/recovery anchor"), ("deploymentName", "production / canary", "Decouple project from release"), ("topIntent", "intent + confidence", "Route only above threshold"), ("answer", "text + source + confidence", "Surface provenance")],
-        code="result = client.analyze_conversation(\n    task={\"kind\": \"Conversation\",\n          \"analysisInput\": {\"conversationItem\": {\n              \"id\": \"1\", \"participantId\": \"u1\",\n              \"text\": utterance}}})\nprint(result[\"result\"][\"prediction\"][\"topIntent\"])",
-        chart=(['billing', 'returns', 'delivery', 'none'], [0.88, 0.82, 0.76, 0.41], "Indicative mean confidence by intent: low-confidence 'none' is desirable only if it safely captures out-of-domain utterances; inspect confusion, not confidence alone."),
-        decision=("Are answers curated, auditable, and source-bound?", "Use custom question answering with source/alternate phrasing", "Use RAG for larger dynamic corpora; keep citations and filters"),
-        failures=[("Intent confusion", "Overlapping utterances", "Relabel or split using confusion matrix"), ("No answer", "Source not indexed or alternate missing", "Trace source ingestion and variants"), ("Version drift", "Deployment points to old training", "Record project/deployment version"), ("Retirement risk", "Feature lifecycle changes", "Plan migration and regression suite")],
-        verify="Evidence pack: label guide, train/test split, confusion matrix, deployment name, fallback threshold, Q&A source citation, export, and recovery rehearsal.",
+        title="Generative text analysis and translation",
+        domain="TEXT ANALYSIS · AI-103 10–15%",
+        architecture=[("Input", "Source message + language + provenance"), ("Extract", "Topic, entities, sentiment, summary"), ("Validate", "Typed JSON + exact evidence spans"), ("Route", "PII gate, human review, agent tool")],
+        flow=["Detect language", "Extract typed fields", "Verify source spans", "Redact sensitive data", "Route for review"],
+        contracts=[("message_id", "stable source ID", "Traceability"), ("evidence_span", "exact source substring", "Reject unsupported claims"), ("sensitive_content", "boolean", "Review and redact"), ("review_required", "boolean", "No unsafe auto-action")],
+        code="record = {\"message_id\": \"M1\", \"evidence_span\": \"refund for order 12345\"}\nsource = \"I need a refund for order 12345.\"\nassert record[\"evidence_span\"] in source\n# Validate every generated field before an agent uses it",
+        chart=(['grounded extraction', 'translation check', 'PII review', 'human review'], [92, 84, 100, 18], "Illustrative evaluation set (%): report source-grounded extraction, translation fidelity, and sensitive-content handling separately."),
+        decision=("Can typed fields be supported by exact source spans?", "Accept schema-valid result after policy checks", "Require human review or a deterministic service fallback"),
+        failures=[("Invented entity", "Model guesses a customer fact", "Require exact evidence span"), ("PII leak", "Identifier enters logs or tool", "Redact before routing"), ("Translation drift", "Domain term changes meaning", "Compare source and translation"), ("Bad JSON", "Agent tool receives malformed output", "Validate types and required fields")],
+        verify="Evidence pack: synthetic source messages, typed JSON, exact spans, sensitive-content decision, translation comparison, validator output, and agent routing rule.",
     ),
     dict(
-        title="Azure AI Search, vector retrieval, and knowledge mining",
-        domain="KNOWLEDGE MINING · 15–20% OF FINAL AI-102 BLUEPRINT",
+        title="Knowledge retrieval, indexing, and grounding",
+        domain="INFORMATION EXTRACTION · AI-103 10–15%",
         architecture=[("Source", "Blob/SQL/Cosmos data source"), ("Enrichment", "Indexer + skillset + cache"), ("Index", "Text, filters, vectors, semantic config"), ("Query", "BM25 + vector + RRF + semantic rerank")],
         flow=["Crack documents", "Enrich skills", "Project fields", "Build vector index", "Hybrid query"],
         contracts=[("key", "Edm.String, key=true", "Unique document/chunk ID"), ("vector", "Collection(Edm.Single)", "Dimensions + HNSW profile"), ("search/filter/select", "query contract", "Reduce exposure and payload"), ("scores", "@search.score / rerankerScore", "Different scales; do not compare directly")],
@@ -214,7 +213,7 @@ TOPICS = [
     ),
     dict(
         title="Document Intelligence and Content Understanding",
-        domain="INFORMATION EXTRACTION · 15–20% OF FINAL AI-102 BLUEPRINT",
+        domain="INFORMATION EXTRACTION · AI-103 10–15%",
         architecture=[("Input", "Document/image/audio/video + content type"), ("Analyzer", "Prebuilt/custom/composed/Content Understanding"), ("Schema", "Fields, tables, spans, confidence, provenance"), ("Downstream", "Validation, search, workflow, audit")],
         flow=["Classify input", "Select analyzer", "Extract structure", "Validate confidence", "Route downstream"],
         contracts=[("modelId / analyzerId", "prebuilt or versioned custom", "Release identity"), ("pages / spans", "offset + length + polygon", "Trace extracted value to source"), ("confidence", "field-level 0–1", "Drive review threshold"), ("operation-location", "async result URL", "Poll until succeeded/failed")],
@@ -511,13 +510,13 @@ class Deck:
         self.admin_cards("admin_ground_rules","Ground Rules","LEARNING ENVIRONMENT",[("PUNCTUAL","Return from breaks on time"),("PARTICIPATE","Explain decisions and evidence"),("PROTECT DATA","Use synthetic/non-confidential inputs"),("ASK EARLY","Raise blockers before they cascade")],BLUE)
         self.admin_cards("admin_outcomes","Learning Outcomes","TSC ALIGNMENT",[("LO1","Analyse Azure AI algorithms and efficiency"),("LO2","Evaluate strengths and limitations"),("LO3","Assess feasibility and improvements"),("EVIDENCE","Explain what proves each conclusion")],VIOLET)
         self.admin_cards("admin_schedule","Two-Day Lesson Plan","9:00 AM–6:00 PM",[("DAY 1 AM","Planning, governance, generative AI"),("DAY 1 PM","Agents, vision, language/speech"),("DAY 2 AM","Custom language, search, extraction"),("DAY 2 PM","Capstone + 2-hour assessment")],TEAL)
-        self.admin_cards("admin_exam_status","AI-102 Exam Status","CURRENT AS OF 26 AUG 2026",[("RETIRED","AI-102 retired 30 Jun 2026"),("SCOPE","Final blueprint dated 23 Dec 2025"),("COURSE","Approved WSQ title/code remain unchanged"),("SUCCESSOR","Use AI-103 for current certification path")],AMBER)
+        self.admin_cards("admin_exam_status","AI-103 Course Scope","CURRENT AS OF 27 SEP 2026",[("EXAM","AI-103: Developing AI Apps and Agents on Azure"),("SCOPE","Skills measured from 16 Apr 2026"),("COURSE","WSQ TGS-2023036651 · two days"),("FOCUS","Foundry apps, agents, multimodal and extraction")],AMBER)
         self.hyperlink_card("admin_ai103","Current Microsoft certification pathway",AI103_GUIDE,"AI-103: Developing AI Apps and Agents on Azure · skills measured from 16 Apr 2026",BLUE,"Microsoft Learn · AI-103 Study Guide")
         self.admin_cards("admin_briefing","Briefing for Assessment","READ BEFORE ASSESSMENT",[("OPEN BOOK","Use approved slides and Learner Guide"),("INDIVIDUAL","No discussion or shared answers"),("EVIDENCE","Answer every K/A criterion"),("SUBMISSION","Upload through the LMS")],VIOLET)
         self.admin_cards("admin_assessment","Assessment","APPROVED PLAN",[("WA-SAQ","6 open-ended questions · K1–K6"),("PP","6 lab-evidence tasks · A1–A6"),("TIMING","60 minutes each"),("OUTCOME","Competent / Not Yet Competent")],VIOLET)
         self.assessment_flow("admin_assessment_flow",True)
         self.hyperlink_card("admin_lms","Courseware and Assessment on the LMS",LMS_URL,"Download the learner materials and submit the two candidate papers on the LMS",TEAL,"LMS-TMS · Courseware and Assessment")
-        self.hyperlink_card("admin_labs","Access the Hands-On Labs",REPO_URL,"Clone the repository or use GitHub · Code · Download ZIP; every lab has its own folder and detailed README",BLUE,"GitHub · AI-102 Hands-On Labs")
+        self.hyperlink_card("admin_labs","Access the Hands-On Labs",REPO_URL,"Clone the repository or use GitHub · Code · Download ZIP; every lab has its own folder and detailed README",BLUE,"GitHub · AI-103 Hands-On Labs")
         self.section_slide("day1",0,"Day 1","Planning · governance · generative AI · agents · vision · language",BLUE)
         for i,(topic,lab) in enumerate(zip(TOPICS,self.labs),1):
             if i==7: self.section_slide("day2",0,"Day 2","Custom language · search · information extraction · capstone",TEAL)
@@ -537,7 +536,7 @@ class Deck:
             self.activity(f"lab{i:02d}_activity",lab,topic,accent)
             self.verify(f"lab{i:02d}_verify",lab,topic)
         self.section_slide("closing",0,"Assessment and course close","Evidence submission · assessment flow · support",VIOLET)
-        self.hyperlink_card("closing_support","Course registration and support",COURSE_URL,"Course details, funding information, schedules, and registration",BLUE,"Tertiary Courses · AI-102 Registration")
+        self.hyperlink_card("closing_support","Course enquiries and support",COURSE_URL,"Contact Tertiary Courses for current course details, schedules, and registration",BLUE,"Tertiary Courses · Course Enquiries")
         self.admin_cards("closing_assessment","Assessment","FINAL REMINDER",[("WA-SAQ","60 min · K1–K6"),("PP","60 min · A1–A6"),("OPEN BOOK","Approved materials only"),("SUBMIT","Candidate papers on LMS")],VIOLET)
         self.assessment_flow("closing_flow")
         self.admin_cards("closing_attendance","Digital Attendance (Mandatory)","TRAQOM · SSG",[("SCAN","Use the LMS/TMS QR code"),("ASSESSMENT","Complete digital attendance"),("VERIFY","Confirm attendance recorded"),("SIGN","Complete Assessment Summary Record")],TEAL)
@@ -600,7 +599,7 @@ def version_record(doc:Document,summary:str):
         cell=t.rows[0].cells[i]; cell.text=h; cell._tc.get_or_add_tcPr().append(shading(BLUE));
         for p in cell.paragraphs:
             for r in p.runs: doc_font(r,9.2,True,WHITE)
-    for vals in [("1.0","13 Jul 2026","Initial 10-lab AI-102 courseware release",ORG),(VERSION,DATE,summary,ORG)]:
+    for vals in [("2.0","26 Aug 2026","Prior AI-102 courseware release",ORG),("3.0","27 Sep 2026","AI-103 title transition",ORG),(VERSION,DATE,summary,ORG)]:
         cells=t.add_row().cells
         for i,v in enumerate(vals): cells[i].text=v
         for cell in cells:
@@ -659,10 +658,10 @@ def render_markdown(doc:Document,text:str):
 
 
 def build_lg(labs:list[Lab]):
-    d=Document(); setup_doc(d); cover(d,"Learner Guide"); version_record(d,"Current Microsoft Foundry terminology; AI-102 retirement transition; technical evidence model; 10 detailed self-contained labs."); toc(d,["How to Use This Guide","Before You Start"]+[f"Lab {lab.num:02d} - {lab.title}" for lab in labs]+["Quick Command Reference","Assessment Flow and Support"])
+    d=Document(); setup_doc(d); cover(d,"Learner Guide"); version_record(d,"AI-103 course title and current Foundry scope; technical evidence model; 10 detailed self-contained labs."); toc(d,["How to Use This Guide","Before You Start"]+[f"Lab {lab.num:02d} - {lab.title}" for lab in labs]+["Quick Command Reference","Assessment Flow and Support"])
     d.add_heading("How to Use This Guide",level=1)
     d.add_paragraph("Use the trainer deck to understand mechanisms and decisions. Use this guide for the detailed click paths, commands, code, expected results, diagnostics, and evidence required in each lab.")
-    add_table(d,["Authority","Current reference"],[["Approved course",f"{TITLE} · {CODE} · 2 days / 16 hours"],["Course page",COURSE_URL],["Final AI-102 blueprint","Skills measured 23 Dec 2025; exam retired 30 Jun 2026"],["Current certification path","AI-103 skills measured from 16 Apr 2026"],["LMS",LMS_URL]])
+    add_table(d,["Authority","Current reference"],[["Approved course",f"{TITLE} · {CODE} · 2 days / 16 hours"],["Course enquiries",COURSE_URL],["AI-103 study guide","Skills measured from 16 Apr 2026"],["Microsoft course","AI-103T00-A: Develop AI apps and agents on Azure"],["LMS",LMS_URL]])
     d.add_heading("Before You Start",level=1)
     for x in ["Use the Azure subscription or lab environment supplied by the trainer.","Install current Azure CLI/Python tooling only when the lab requires it.","Authenticate with Microsoft Entra ID where supported; never save live keys in the repository.","Use synthetic data and remove training resources after evidence has been captured.","For every lab, retain request IDs, deployment/model versions, screenshots or JSON outputs, and a short interpretation."]:
         d.add_paragraph(x,style="List Bullet")
@@ -685,7 +684,7 @@ def build_lg(labs:list[Lab]):
 
 
 def build_lp(labs:list[Lab],m:dict[str,int]):
-    d=Document(); setup_doc(d); cover(d,"Lesson Plan"); version_record(d,"Updated to v2.0 deck slide map, final AI-102 blueprint terminology, AI-103 transition, 10 mechanism-led labs, and approved 60+60 minute assessments."); toc(d,["Course Overview","Learning Outcomes","Daily Schedule","Topic-by-Topic Breakdown","Resources Required","Assessment"])
+    d=Document(); setup_doc(d); cover(d,"Lesson Plan"); version_record(d,"Updated to v4.0 deck slide map, AI-103 scope, 10 mechanism-led labs, and approved 60+60 minute assessments."); toc(d,["Course Overview","Learning Outcomes","Daily Schedule","Topic-by-Topic Breakdown","Resources Required","Assessment"])
     d.add_heading("Course Overview",level=1)
     d.add_paragraph("A two-day instructor-led WSQ course that develops the ability to analyse, evaluate, and improve Azure AI solutions through Microsoft Foundry services, governed engineering decisions, and observable evidence.")
     d.add_heading("Learning Outcomes",level=1)

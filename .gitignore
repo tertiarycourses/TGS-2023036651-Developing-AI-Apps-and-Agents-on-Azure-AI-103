@@ -1,6 +1,6 @@
 /Assessments/
 /assessment/
-/scripts/build_ai102_assessments.py
+/scripts/build_ai103_assessments.py
 
 # Local publication state and secrets
 .env
@@ -18,3 +18,5 @@ secrets.json
 
 # Generated archives
 *.zip
+
+/scripts/archive/

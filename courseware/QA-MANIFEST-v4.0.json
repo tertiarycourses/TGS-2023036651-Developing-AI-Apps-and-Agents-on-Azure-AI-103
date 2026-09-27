@@ -1,0 +1,20 @@
+{
+  "courseCode": "TGS-2023036651",
+  "title": "Developing AI Apps and Agents on Azure (AI-103)",
+  "version": "4.0",
+  "artifact_sha256": {
+    "Developing AI Apps and Agents on Azure (AI-103)-v4.0.pptx": "4dc326d1d4e4867e7f1e4e90cedcf0584fb8add784eef5c2b1d5413168075fbc",
+    "Developing AI Apps and Agents on Azure (AI-103)-v4.0.pdf": "0c42a621a5f107934a06db08f46e691abf40721e082240d61402343c22a500a5",
+    "LG-Developing AI Apps and Agents on Azure (AI-103).docx": "a6713f961267641ff53b73b90039eb2bbcc0b31afd873d7d03d58d3d75fe6ad5",
+    "LG-Developing AI Apps and Agents on Azure (AI-103).pdf": "6308677fb6b6b03369934cf8853210f7b705dd1faaaf68d1e324690b25d999f4",
+    "LG-Developing AI Apps and Agents on Azure (AI-103).md": "45cd76bd3737bcff213800605e0aa4e941308cc9c308228bec97d733dce80d06",
+    "LP-Developing AI Apps and Agents on Azure (AI-103).docx": "90dd9980b6890230e38f098ef82a3a141214167fa9553ace3e4dc58ee8d2b11d",
+    "LP-Developing AI Apps and Agents on Azure (AI-103).pdf": "5a402726d62bfff662f5eccec6d50ef0032c0594a1b7eabaffb417522d322aab"
+  },
+  "lab_file_count": 27,
+  "lab_tree_sha256": "e4f2e545d3f9c9df47c7a6a8d7c32f2513230dcce5aa36866f76c8440c322fa4",
+  "assessment_candidate_sha256": {
+    "WA": "24880f1b036738a62190684518289a0063e1fc8ddab6f6fa64b09fffc8c5e6a4",
+    "PP": "7b430c9fd5d04e3de448b147eea8b981e3f458eb5509704219d064776ba31ed1"
+  }
+}

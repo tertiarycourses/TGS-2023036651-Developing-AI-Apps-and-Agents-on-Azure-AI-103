@@ -60,6 +60,10 @@ Draw:
 Upload content -> extract text/entities/tables -> validate -> store structured data -> search/report
 ```
 
+### 6. Build a Grounded Extraction Contract
+
+Read `data/maintenance-record.json` and inspect `data/example-extraction.json`. Define an analyzer output with `document_id`, `part_number`, `fault`, `action`, `confidence`, and `source_span` or page region. Copy the example to your own JSON file, correct or change one field, and run `python3 validate.py <your-file.json>`. The validator requires source provenance and human review below 0.80 confidence. Trace the clean structured output into a search index or agent tool without discarding provenance. Record analyzer version, supported modality, latency and cost estimates, privacy policy, and a fallback when the field-accuracy gate fails. This local validator does not claim a live Content Understanding call.
+
 ## Validation
 
 You should have scenario mapping, custom model plan, content understanding plan, review rules, and integration flow.
